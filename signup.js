@@ -1,34 +1,89 @@
-function verify()
+function fverify()
 {
-    var fname = document.getElementById("fname");
-    var sname = document.getElementById("sname");
-    var user  = document.getElementById("user");
-    var bday  = document.getElementById("bday");
-    var email = document.getElementById("email");
-    var pass1 = document.getElementById("pass1");
-    var pass2 = document.getElementById("pass2");
-    var sex   = document.getElementById("sex");
-    var dept  = document.getElementById("dept");
-
-    pass1 = toString(pass1);
-    pass2 = toString(pass2);
-
-    pass1 = CryptoJS.SHA1(pass1);
-    pass2 = CryptoJS.SHA1(pass2);
+    var fname = document.getElementById("fname").value;
+    var sname = document.getElementById("sname").value;
+    var user  = document.getElementById("user").value;
+    var bday  = document.getElementById("bday").value;
+    var email = document.getElementById("email").value;
+    var pass1 = document.getElementById("pass1").value;
+    var pass2 = document.getElementById("pass2").value;
+    var sex   = document.getElementById("sex").value;
+    var dept  = document.getElementById("dept").value;
 
     fname = ucase(fname);
     sname = ucase(sname);
+    fname = fname.trim();
+    sname = sname.trim();
+    document.getElementById("fname").value = fname;
+    document.getElementById("sname").value = sname;
 
-
+    if((pass1.length<6)||(pass2.length<6))
+    {
+        alert("Enter a password with 6 characters or greater");
+        return;
+    }
     if(pass1.localeCompare(pass2)!==0)
     {
-        document.getElementById("obox").innerHTML = " Passwords do not match!!. Please try again. <br> <a href=\"./signup.php\"> Signup!! </a>";
+        alert("Enter same password");
+        return;
     }
+    if((!/^[a-zA-Z]*$/.test(fname))||(!/^[a-zA-Z]*$/.test(sname)))
+    {
+        alert("Enter a valid Name");
+        return;
+    }
+    if(!/^[a-zA-Z0-9_]*$/.test(user))
+    {
+        alert("Enter a valid Username");
+        return;
+    }
+    if(!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(email))
+    {
+        alert("Enter a valid email id");
+        return;
+    }
+    if(dept.localeCompare("Department")===0)
+    {
+        alert("Enter your department");
+        return;
+    }
+    if(sex.localeCompare("Gender")===0)
+    {
+        alert("Enter your Gender");
+        return;
+    }
+    hasher();
+    document.getElementById("checker").click();
+
+}
+function checkSize(max_img_size)
+{
+    var input = document.getElementById("pic");
+
+    if(input.files && input.files.length == 1)
+    {
+        if (input.files[0].size > max_img_size)
+        {
+            alert("The Image file must be less than " + (max_img_size/1024) + "KB");
+            return false;
+        }
+    }
+    return true;
+}
+function hasher()
+{
+
+    var pass1 = document.getElementById("pass1").value;
+    var pass2 = document.getElementById("pass2").value;
+
+    var p1 = CryptoJS.SHA1(pass1);
+    var p2 = CryptoJS.SHA1(pass2);
+
+    document.getElementById("pass1").value = p1;
+    document.getElementById("pass2").value = p2;
 
 
 }
-
-
 function ucase(str)
 {
     var p = str.split(" ");

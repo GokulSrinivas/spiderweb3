@@ -6,7 +6,9 @@
         <script type="text/javascript">
         function hasher()
             {
-                document.getElementById("pass") = CryptoJS.SHA1(document.getElementById("pass"));
+                var pass1 = document.getElementById("pass").value;
+                var p1 = CryptoJS.SHA1(pass1);
+                document.getElementById("pass").value = p1;
             }
         </script>
     </head>

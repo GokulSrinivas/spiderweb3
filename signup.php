@@ -4,12 +4,13 @@
         <title>Sign Up</title>
         <link rel="stylesheet" type="text/css" href="signupstyle.css">
         <script type="text/javascript" src="signup.js"></script>
+        <script type="text/javascript" src="sha.js"></script>
     </head>
     <body>
         <div id="obox">
 
             <center><h1>Registration Form</h1></center>
-            <form action="newuser.php" method="post" id="sform">
+            <form action="newuser.php" method="post" id="sform" enctype="multipart/form-data" onsubmit="return checkSize(2097152)">
 
                 <input type="text"     placeholder="First Name" id="fname" name="fname" maxlength="20" required>
                 <input type="text"     placeholder="Last Name"  id="sname" name="sname" maxlength="20" required>
@@ -40,7 +41,13 @@
                     <option value="CIV">Civil Engineering</option>
                     <option value="CHM">Chemical Engineering</option>
                 </select>
-                <input type="button" value="Register" id="regb" onclick="verify();">
+                <input type="hidden" name="imgsize" value="204800">
+                <input type="file" name="pic" id="pic" value="Profile Picture" accept=".png">
+                <input type="button" id="dumb" value="Upload Profile Pic" onclick="document.getElementById('pic').click();">
+                <textarea name="int" id="int" maxlength="100" placeholder="Your interests"></textarea>
+                <input type="submit" name="checker" id="checker" style="opacity: 0;" value="done">
+                <center><input type="button" value="Register" id="regb" onclick="fverify();"></center>
+
             </form>
 
 
